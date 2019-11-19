@@ -1,0 +1,61 @@
+{
+  "name": "sisal-cl",
+  "version": "0.1.0",
+  "description": "Sisal extended with pragmas",
+  "main": "./build/sisal.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "mocha",
+    "coverage": "nyc mocha"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parsifal-47/sisal-cl.git"
+  },
+  "keywords": [
+    "sisal",
+    "interpreter",
+    "streams",
+    "dataflow",
+    "functional"
+  ],
+  "author": "Renat Idrisov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parsifal-47/sisal-cl/issues"
+  },
+  "homepage": "https://github.com/parsifal-47/sisal-cl#readme",
+  "dependencies": {
+    "@types/node": "^12.11.7",
+    "@types/pegjs": "^0.10.1",
+    "pegjs": "^0.10.0",
+    "pretty-data": "git://github.com/parsifal-47/pretty-data.git",
+    "ts-pegjs": "^0.2.6"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.4",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.2",
+    "typescript": "3.6.4"
+  }
+}
