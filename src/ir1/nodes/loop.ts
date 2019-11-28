@@ -31,8 +31,12 @@ export class LoopExpression extends ComplexNode {
 
   constructor(definition: AST.LoopExpression, scope: Scope, fs: FunctionScope) {
     super("LoopExpression", definition);
+    const params = scope.getParams();
     this.cloneParamsFromScope(scope);
-    this.init = new Init("Init", definition.init, scope.getParams(), fs);
+    for (let i = 0; i < params.length; i++) {
+      scope.addEdge([scope.resolve(params[i][0]), this.inPorts[i]]);
+    }
+    this.init = new Init("Init", definition.init, params, fs);
     let bodyInputs = this.init.getResults();
     if (definition.range) {
       this.range = new Range(definition.range, scope, fs);

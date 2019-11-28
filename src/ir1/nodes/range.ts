@@ -23,7 +23,6 @@ export class Range extends ComplexNode {
       this.outPorts.push(outPort);
       this.results.push([definition.names[i], outPort]);
     }
-    scope.addNode(this);
   }
 
   public getResults(): Array<[string, Type]> {

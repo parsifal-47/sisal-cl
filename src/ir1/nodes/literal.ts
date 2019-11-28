@@ -29,4 +29,8 @@ export class Literal extends Node {
     scope.addNode(this);
     this.outPorts.push(new Port(this.id, t));
   }
+
+  public graphML(): string {
+    return this.graphMLInternal("", new Map([["value", this.value]]));
+  }
 }
