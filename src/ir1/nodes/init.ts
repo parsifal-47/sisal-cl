@@ -29,6 +29,7 @@ export class Init extends ComplexNode {
         const outPort = new Port(this.id, ports[i].type);
         this.outPorts.push(outPort);
         this.results.push([d.left[i], outPort]);
+        this.addEdge([ports[i], outPort]);
       }
     }
   }
