@@ -16,6 +16,8 @@ export * from "./old";
 export * from "./range";
 export * from "./record";
 export * from "./recordAccess";
+export * from "./reduction";
+export * from "./returns";
 export * from "./scatter";
 export * from "./stream";
 export * from "./unary";

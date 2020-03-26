@@ -14,7 +14,7 @@ export class LetExpression extends ComplexNode {
     super("Let", definition);
     this.cloneParamsFromScope(scope);
     this.init = new Init("Init", definition.definitions, scope.getParams(), fs);
-    this.body = new Body("Body", definition.expressions, this.init.getResults(), fs);
+    this.body = new Body("Body", definition.expressions, this.init.getResults().concat(scope.getParams()), fs);
 
     for (const p of this.body.outPorts) {
       const outPort = new Port(this.id, p.type);

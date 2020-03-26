@@ -3,22 +3,11 @@ import { Scope } from "../scopes/scope";
 import { ComplexNode } from "./complex";
 import { Init } from "./init";
 import { Body } from "./body";
-import * as Types from "../types/";
 import { Range } from "./range";
+import { Returns } from "./returns";
 import { Condition } from "./condition";
 import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
-
-const KnownReductions: Map<string, (t:Types.Type) => Types.Type> = new Map([
-  ["stream", (t) => Types.StreamType.createByElement(t)],
-  ["array", (t) => Types.ArrayType.createByElement(t)],
-  ["value", (t) => t],
-  ["sum", (t) => t],
-  ["product", (t) => t],
-  ["greatest", (t) => t],
-  ["least", (t) => t],
-  ["concatenate", (t) => t]
-]);
 
 export class LoopExpression extends ComplexNode {
   public init: Init;
@@ -42,22 +31,19 @@ export class LoopExpression extends ComplexNode {
       this.range = new Range(definition.range, scope, fs);
       bodyInputs = bodyInputs.concat(this.range.getResults());
     }
+    bodyInputs = bodyInputs.concat(params);
     if (definition.preCondition) {
       this.preCondition = new Condition("PreCondition", [definition.preCondition], bodyInputs, fs);
     }
     this.body = new Init("Body", definition.body, bodyInputs, fs);
-    const returnInputs = this.body.getResults();
+    const returnInputs = bodyInputs.concat(this.body.getResults());
     if (definition.postCondition) {
       this.postCondition = new Condition("PostCondition", [definition.postCondition], returnInputs, fs);
     }
-    this.returns = new Body("Returns", [definition.returns], returnInputs, fs);
-    if (!KnownReductions.has(definition.reduction)) {
-      throw new Error("Unknown reduction " + definition.reduction);
-    }
-    const reduction = KnownReductions.get(definition.reduction)!;
+    this.returns = new Returns(definition.reduction, [definition.returns], returnInputs, fs);
     this.reduction = definition.reduction;
     for (const outPort of this.returns.outPorts) {
-      this.outPorts.push(new Port(this.id, reduction(outPort.type)));
+      this.outPorts.push(new Port(this.id, outPort.type));
     }
     scope.addNode(this);
   }

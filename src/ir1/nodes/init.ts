@@ -11,11 +11,6 @@ export class Init extends ComplexNode {
     super(name);
     this.cloneParams(params);
     this.results = [];
-    for (const [name, port] of this.params) {
-      const outPort = new Port(this.id, port.type);
-      this.outPorts.push(outPort);
-      this.results.push([name, outPort]);
-    }
     for (const d of definitions) {
       let ports: Port[] = [];
       for (let i = 0; i < d.right.length; i++) {
