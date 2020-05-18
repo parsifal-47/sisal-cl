@@ -8,8 +8,7 @@ export interface LoopExpression extends Node {
   preCondition?: Expression;
   postCondition?: Expression;
   body: Definition[];
-  reduction: string;
-  returns: Expression;
+  reductions: Reduction[];
 }
 
 export function isLoopExpression(node: Node): node is LoopExpression {
@@ -23,4 +22,13 @@ export interface RangeList extends Node {
 
 export function isRangeList(node: Node): node is RangeList {
   return node.type === "RangeList";
+}
+
+export interface Reduction extends Node {
+  name: string;
+  expression: Expression;
+}
+
+export function isReduction(node: Node): node is Reduction {
+  return node.type === "Reduction";
 }

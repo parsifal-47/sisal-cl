@@ -1,6 +1,6 @@
 import * as AST from "./ast";
-import * as Nodes from "./ir1/nodes";
 import * as GML from "./graphml/";
+import * as Nodes from "./ir1/nodes";
 import { FunctionScope } from "./ir1/scopes/function";
 import { FunctionType } from "./ir1/types";
 

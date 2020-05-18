@@ -1,9 +1,9 @@
+import { Port } from "../ports/port";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
-import { Port } from "../ports/port";
 import { Node } from "./node";
 
-const KnownReductions: Map<string, (t:Types.Type) => Types.Type> = new Map([
+const KnownReductions: Map<string, (t: Types.Type) => Types.Type> = new Map([
   ["stream", (t) => Types.StreamType.createByElement(t)],
   ["array", (t) => Types.ArrayType.createByElement(t)],
   ["value", (t) => t],
@@ -11,7 +11,7 @@ const KnownReductions: Map<string, (t:Types.Type) => Types.Type> = new Map([
   ["product", (t) => t],
   ["greatest", (t) => t],
   ["least", (t) => t],
-  ["concatenate", (t) => t]
+  ["concatenate", (t) => t],
 ]);
 
 export class Reduction extends Node {

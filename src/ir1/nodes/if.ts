@@ -1,10 +1,10 @@
 import * as AST from "../../ast";
-import { Scope } from "../scopes/scope";
-import { Condition } from "./condition";
-import { ComplexNode } from "./complex";
-import { Body } from "./body";
 import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
+import { Body } from "./body";
+import { ComplexNode } from "./complex";
+import { Condition } from "./condition";
 
 export class IfExpression extends ComplexNode {
   public condition: Condition;
@@ -12,7 +12,7 @@ export class IfExpression extends ComplexNode {
   constructor(definition: AST.IfExpression, scope: Scope, fs: FunctionScope) {
     super("If", definition);
     const inputs = scope.getParams();
-    let conditions: AST.Expression[] = [];
+    const conditions: AST.Expression[] = [];
 
     this.cloneParams(inputs);
 

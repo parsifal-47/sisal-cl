@@ -1,9 +1,9 @@
 import * as AST from "../../ast";
-import { Scope } from "../scopes/scope";
 import * as GML from "../../graphml/";
-import { Port } from "../ports/port";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
 
 export class Node {
   private static lastId: number = 0;
@@ -37,7 +37,7 @@ export class Node {
     if (sourcePorts.length != 1) {
       throw new Error("Element cannot resolve to multiple");
     }
-    const destPort = new Port(this.id, sourcePorts[0].type); 
+    const destPort = new Port(this.id, sourcePorts[0].type);
     this.inPorts.push(destPort);
     scope.addEdge([sourcePorts[0], destPort]);
   }

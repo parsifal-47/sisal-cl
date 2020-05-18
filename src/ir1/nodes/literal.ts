@@ -1,8 +1,8 @@
 import * as AST from "../../ast";
+import { Port } from "../ports/port";
+import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { Scope } from "../scopes/scope";
-import { Port } from "../ports/port";
 
 export class Literal extends Node {
   public value: string;

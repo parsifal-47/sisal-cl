@@ -1,8 +1,15 @@
 import * as ASTTypes from "../../ast/types";
-import { Type } from "./type";
 import { typeFromAST } from "../create";
+import { Type } from "./type";
 
 export class FunctionType extends Type {
+
+  public static createByElements(params: Type[], returns: Type[]): FunctionType {
+    const t = new FunctionType();
+    t.params = params;
+    t.returns = returns;
+    return t;
+  }
   public params: Type[];
   public returns: Type[];
 
@@ -12,7 +19,7 @@ export class FunctionType extends Type {
     this.params = [];
     this.returns = [];
 
-    if (!definition) return;
+    if (!definition) { return; }
 
     for (const type of definition.params) {
       this.params.push(typeFromAST(type));
@@ -23,15 +30,8 @@ export class FunctionType extends Type {
     }
   }
 
-  public static createByElements(params: Type[], returns: Type[]): FunctionType {
-    const t = new FunctionType();
-    t.params = params;
-    t.returns = returns;
-    return t;
-  }
-
   public string(): string {
-    return "function[" + this.params.map((x) => x.string()).join(", ") + "] " + 
+    return "function[" + this.params.map((x) => x.string()).join(", ") + "] " +
     "returns [" + this.returns.map((x) => x.string()).join(", ") + "]";
   }
 }

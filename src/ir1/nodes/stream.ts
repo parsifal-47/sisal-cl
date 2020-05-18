@@ -1,10 +1,10 @@
 import * as AST from "../../ast/composite";
-import { Scope } from "../scopes/scope";
 import { typeFromAST } from "../create";
-import * as Types from "../types/";
-import { Node } from "./node";
 import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
+import * as Types from "../types/";
+import { Node } from "./node";
 
 export class StreamValue extends Node {
   constructor(definition: AST.StreamValue, scope: Scope, fs: FunctionScope) {
@@ -12,7 +12,7 @@ export class StreamValue extends Node {
     for (const expression of definition.contents) {
       this.createAndLink(expression, scope, fs);
     }
-    let element = typeFromAST(definition.elementType);
+    const element = typeFromAST(definition.elementType);
 
     for (const p of this.inPorts) {
       if (p.type != element) {

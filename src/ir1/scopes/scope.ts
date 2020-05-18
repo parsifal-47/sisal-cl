@@ -1,5 +1,5 @@
-import { Port } from "../ports/port"
-import { Node } from "../nodes/node"
+import { Node } from "../nodes/node";
+import { Port } from "../ports/port";
 import { Type } from "../types/type";
 
 export interface Scope {

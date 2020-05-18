@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { pd } from "pretty-data";
-import { Parser } from "./parser";
 import { Module } from "./module";
+import { Parser } from "./parser";
 
 const args = process.argv;
 let graph = false;

@@ -1,10 +1,10 @@
 import * as AST from "../../ast";
-import { Scope } from "../scopes/scope";
-import { Init } from "./init";
-import { Body } from "./body";
-import { ComplexNode } from "./complex";
 import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
+import { Body } from "./body";
+import { ComplexNode } from "./complex";
+import { Init } from "./init";
 
 export class LetExpression extends ComplexNode {
   public init: Init;

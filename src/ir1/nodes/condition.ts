@@ -1,9 +1,9 @@
 import * as AST from "../../ast";
-import { ComplexNode } from "./complex";
-import { Type } from "../types/type";
-import { Port } from "../ports/port";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Type } from "../types/type";
+import { ComplexNode } from "./complex";
 
 export class Condition extends ComplexNode {
   constructor(name: string, expressions: AST.Expression[], inputs: Array<[string, Type]>, fs: FunctionScope) {

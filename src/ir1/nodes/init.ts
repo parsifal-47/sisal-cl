@@ -1,9 +1,9 @@
 import * as AST from "../../ast";
-import { ComplexNode } from "./complex";
-import { Port } from "../ports/port";
-import { Type } from "../types/type";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Type } from "../types/type";
+import { ComplexNode } from "./complex";
 
 export class Init extends ComplexNode {
   public results: Array<[string, Port]>;

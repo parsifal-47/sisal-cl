@@ -1,8 +1,17 @@
 import * as ASTTypes from "../../ast/types";
-import { Type } from "./type";
 import { typeFromAST } from "../create";
+import { Type } from "./type";
 
 export class RecordType extends Type {
+
+  public static createByElements(elements: Array<[string, Type]>): RecordType {
+    const t = new RecordType();
+    for (const [name, type] of elements) {
+      t.names.push(name);
+      t.types.push(type);
+    }
+    return t;
+  }
   public types: Type[];
   public names: string[];
 
@@ -21,15 +30,6 @@ export class RecordType extends Type {
         this.types.push(typeFromAST(field.dataType));
       }
     }
-  }
-
-  public static createByElements(elements: Array<[string, Type]>): RecordType {
-    const t = new RecordType();
-    for (const [name, type] of elements) {
-      t.names.push(name);
-      t.types.push(type);
-    }
-    return t;
   }
 
   public string(): string {

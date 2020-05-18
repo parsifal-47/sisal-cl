@@ -2,6 +2,16 @@ import * as ASTTypes from "../../ast/types";
 import { Type } from "./type";
 
 export class PrimitiveType extends Type {
+
+  public static createByName(name: string): PrimitiveType {
+    if (["boolean", "integer", "real", "string"].indexOf(name) === -1) {
+      throw new Error("Unexpected primitive type " + name);
+    }
+
+    const t = new PrimitiveType();
+    t.name = name;
+    return t;
+  }
   public name: string;
 
   constructor(definition?: ASTTypes.PrimitiveType) {
@@ -23,16 +33,6 @@ export class PrimitiveType extends Type {
     } else {
       throw new Error("Unexpected primitive type " + JSON.stringify(definition));
     }
-  }
-
-  public static createByName(name: string): PrimitiveType {
-    if (["boolean", "integer", "real", "string"].indexOf(name) === -1) {
-      throw new Error("Unexpected primitive type " + name);
-    }
-
-    const t = new PrimitiveType();
-    t.name = name;
-    return t;
   }
 
   public string(): string {

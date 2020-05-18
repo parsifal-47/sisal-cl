@@ -1,9 +1,9 @@
 import * as AST from "../../ast";
+import { Port } from "../ports/port";
+import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { Port } from "../ports/port";
-import { FunctionScope } from "../scopes/function";
 
 export class BinaryExpression extends Node {
   public operator: string;
@@ -25,6 +25,6 @@ export class BinaryExpression extends Node {
   }
 
   public graphML(): string {
-    return this.graphMLInternal("", new Map([["operator", this.operator.replace(/</g, '&lt;').replace(/>/g, '&gt;')]]));
+    return this.graphMLInternal("", new Map([["operator", this.operator.replace(/</g, "&lt;").replace(/>/g, "&gt;")]]));
   }
 }

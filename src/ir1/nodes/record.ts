@@ -1,9 +1,9 @@
 import * as AST from "../../ast/composite";
 import { Port } from "../ports/port";
+import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { FunctionScope } from "../scopes/function";
 
 export class RecordValue extends Node {
   constructor(record: AST.RecordValue, scope: Scope, fs: FunctionScope) {

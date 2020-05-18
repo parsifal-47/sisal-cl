@@ -1,9 +1,9 @@
 import * as AST from "../../ast";
+import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
+import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import { Node } from "./node";
-import { Port } from "../ports/port";
-import { getOutPorts } from "../create";
-import { FunctionScope } from "../scopes/function";
 
 export class OldValue extends Node {
   public constructor(definition: AST.OldValue, scope: Scope, fs: FunctionScope) {

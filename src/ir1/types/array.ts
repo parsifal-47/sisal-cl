@@ -1,8 +1,14 @@
 import * as ASTTypes from "../../ast/types";
-import { Type } from "./type";
 import { typeFromAST } from "../create";
+import { Type } from "./type";
 
 export class ArrayType extends Type {
+
+  public static createByElement(element: Type): ArrayType {
+    const t = new ArrayType();
+    t.element = element;
+    return t;
+  }
   public element: Type;
 
   constructor(definition?: ASTTypes.ArrayType) {
@@ -12,12 +18,6 @@ export class ArrayType extends Type {
       return;
     }
     this.element = typeFromAST(definition.elementType);
-  }
-
-  public static createByElement(element: Type): ArrayType {
-    const t = new ArrayType();
-    t.element = element;
-    return t;
   }
 
   public string(): string {

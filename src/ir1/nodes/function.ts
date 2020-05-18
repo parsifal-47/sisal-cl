@@ -1,10 +1,10 @@
 import * as AST from "../../ast";
 import { typeFromAST } from "../create";
-import { ComplexNode } from "./complex";
 import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
-import { Type } from "../types/type";
 import { FunctionType } from "../types";
+import { Type } from "../types/type";
+import { ComplexNode } from "./complex";
 
 export class FunctionValue extends ComplexNode {
   public functionName?: string;
@@ -53,7 +53,7 @@ export class FunctionValue extends ComplexNode {
   }
   public graphML(): string {
     const props = new Map<string, string>();
-    if (this.functionName) props.set("functionName", this.functionName);
+    if (this.functionName) { props.set("functionName", this.functionName); }
     return this.graphMLComplex([], props);
   }
 }

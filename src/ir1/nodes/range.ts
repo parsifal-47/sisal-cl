@@ -1,11 +1,11 @@
 import * as AST from "../../ast";
-import { Scatter } from "./scatter";
-import { Scope } from "../scopes/scope";
-import { ComplexNode } from "./complex";
-import { Type } from "../types/type";
-import { Port } from "../ports/port";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
+import { Type } from "../types/type";
+import { ComplexNode } from "./complex";
+import { Scatter } from "./scatter";
 
 export class Range extends ComplexNode {
   public results: Array<[string, Port]>;

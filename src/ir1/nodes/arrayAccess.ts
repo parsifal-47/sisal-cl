@@ -1,9 +1,9 @@
 import * as AST from "../../ast/expression";
 import { Port } from "../ports/port";
+import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { FunctionScope } from "../scopes/function";
 
 export class ArrayAccess extends Node {
   constructor(arraySource: Port, definition: AST.ArrayAccess, scope: Scope, fs: FunctionScope) {

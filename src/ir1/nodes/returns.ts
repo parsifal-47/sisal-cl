@@ -1,10 +1,10 @@
 import * as AST from "../../ast";
-import { ComplexNode } from "./complex";
-import * as Types from "../types/";
-import { Port } from "../ports/port";
-import { Reduction } from "./reduction";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import * as Types from "../types/";
+import { ComplexNode } from "./complex";
+import { Reduction } from "./reduction";
 
 export class Returns extends ComplexNode {
   constructor(reduction: string, expressions: AST.Expression[], inputs: Array<[string, Types.Type]>, fs: FunctionScope) {

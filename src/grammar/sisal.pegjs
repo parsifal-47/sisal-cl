@@ -619,6 +619,22 @@ ElseIf
 
 /* TODO: Case Expression */
 
+Reduction
+  = name:Identifier __ OfToken __ returns:Expression __ {
+    return {
+      type: "Reduction",
+      location: location(),
+      name: name,
+      expression: returns
+    }
+  }
+
+ReductionList
+  = head:Reduction
+    tail:( ";" __ Reduction)* {
+      return makeList([head], tail, 2);
+    }
+
 LoopExpression
   = ForToken __
     range:RangeGenerator?
@@ -628,7 +644,7 @@ LoopExpression
     (DoToken __)?
     body:DefinitionList?
     postCondition:LoopCondition? __
-    ReturnsToken __ reduction:Identifier __ OfToken __ returns:Expression __ EndToken __ ForToken __ {
+    ReturnsToken __ reductions:ReductionList EndToken __ ForToken __ {
     return {
       type: "Loop",
       location: location(),
@@ -637,8 +653,7 @@ LoopExpression
       preCondition: preCondition,
       postCondition: postCondition,
       body: body ? body : [],
-      reduction: reduction,
-      returns: returns
+      reductions: reductions
     };
   }
 

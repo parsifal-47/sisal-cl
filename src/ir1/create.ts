@@ -1,10 +1,10 @@
 import * as AST from "../ast";
 import * as ASTTypes from "../ast/types";
-import * as Types from "./types";
 import * as Nodes from "./nodes/";
 import { Port } from "./ports/port";
-import { Scope } from "./scopes/scope";
 import { FunctionScope } from "./scopes/function";
+import { Scope } from "./scopes/scope";
+import * as Types from "./types";
 
 export function typeFromAST(node: ASTTypes.TypeValue): Types.Type {
   if (ASTTypes.isIntegerType(node) || ASTTypes.isFloatType(node) ||
@@ -28,7 +28,7 @@ export function typeFromAST(node: ASTTypes.TypeValue): Types.Type {
 
 export function portFromPostfix(postfix: AST.Postfix, scope: Scope, fs: FunctionScope): Port[] {
   let ports: Port[];
-  let operations = postfix.operationList;
+  const operations = postfix.operationList;
   if (typeof postfix.base === "string" && AST.isFunctionCall(operations[0])) {
     const functionType = fs.resolve(postfix.base);
     const call = new Nodes.FunctionCall(functionType, operations[0], scope, fs);

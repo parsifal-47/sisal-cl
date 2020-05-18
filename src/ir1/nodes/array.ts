@@ -1,9 +1,9 @@
 import * as AST from "../../ast/composite";
+import { Port } from "../ports/port";
+import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { Port } from "../ports/port";
-import { FunctionScope } from "../scopes/function";
 
 export class ArrayValue extends Node {
 

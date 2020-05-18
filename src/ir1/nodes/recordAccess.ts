@@ -1,15 +1,15 @@
 import * as AST from "../../ast/expression";
+import { Port } from "../ports/port";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
-import { Port } from "../ports/port";
 
 export class RecordAccess extends Node {
   public field: string;
 
   constructor(recordSource: Port, definition: AST.RecordAccess, scope: Scope) {
     super("RecordAccess", definition);
-    const recordType = recordSource.type
+    const recordType = recordSource.type;
     if (!(recordType instanceof Types.RecordType)) {
       throw new Error("Trying to record-access " + recordType.string());
     }

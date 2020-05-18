@@ -1,11 +1,11 @@
 import * as AST from "../../ast";
-import { Node } from "./node";
-import { Port } from "../ports/port";
-import * as Types from "../types";
 import * as GML from "../../graphml/";
-import { Scope } from "../scopes/scope";
 import { getOutPorts } from "../create";
+import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
+import { Scope } from "../scopes/scope";
+import * as Types from "../types";
+import { Node } from "./node";
 
 export class ComplexNode extends Node implements Scope {
   public params: Array<[string, Port]>;
@@ -58,7 +58,7 @@ export class ComplexNode extends Node implements Scope {
   public inPortUsed(index: number): boolean {
     const port = this.inPorts[index];
     for (const [p, _] of this.edges) {
-      if (p === port) return true;
+      if (p === port) { return true; }
     }
     return false;
   }
@@ -79,14 +79,14 @@ export class ComplexNode extends Node implements Scope {
     }
   }
 
+  public graphML(): string {
+    return this.graphMLComplex([], new Map([]));
+  }
+
   protected graphMLComplex(nodes: Node[][], props: Map<string, string>): string {
     const edges = this.edges.map((e) => GML.makeEdge(e[0], e[1], this.id)).join("\n");
     const subNodes = this.nodes.map((n) => n.graphML()).join("\n");
     const extra = nodes.map((c) => c.map((n) => n.graphML()).join("\n")).join("\n");
     return this.graphMLInternal(subNodes + extra + edges, props);
-  }
-
-  public graphML(): string {
-    return this.graphMLComplex([], new Map([]));
   }
 }
