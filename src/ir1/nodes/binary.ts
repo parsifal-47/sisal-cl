@@ -25,6 +25,6 @@ export class BinaryExpression extends Node {
   }
 
   public graphML(): string {
-    return this.graphMLInternal("", new Map([["operator", this.operator]]));
+    return this.graphMLInternal("", new Map([["operator", this.operator.replace(/</g, '&lt;').replace(/>/g, '&gt;')]]));
   }
 }
