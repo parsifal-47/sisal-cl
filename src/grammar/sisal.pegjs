@@ -561,7 +561,7 @@ Operand
 /* Compound expressions */
 
 LetExpression
-  = LetToken __ definitions:DefinitionList InToken __ expressions:ExpressionList __ EndToken __ LetToken __ {
+  = LetToken __ definitions:DefinitionList __ InToken __ expressions:ExpressionList __ EndToken __ LetToken __ {
       return {type: "Let", location: location(), definitions: definitions, expressions: expressions };
     }
 
