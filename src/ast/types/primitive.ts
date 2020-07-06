@@ -17,7 +17,7 @@ export function isBooleanType(node: TypeValue): node is BooleanType {
 export type FloatType = TypeValue;
 
 export function isFloatType(node: TypeValue): node is FloatType {
-  return node.name === "float";
+  return node.name === "real";
 }
 
 export type StringType = TypeValue;

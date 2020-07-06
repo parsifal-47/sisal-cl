@@ -6,6 +6,7 @@ import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types";
 import { Node } from "./node";
+import { TypeCast } from "./typeCast"
 
 export class ComplexNode extends Node implements Scope {
   public params: Array<[string, Port]>;
@@ -61,6 +62,18 @@ export class ComplexNode extends Node implements Scope {
       if (p === port) { return true; }
     }
     return false;
+  }
+
+  public addCast(portIndex: number, newType: Types.Type, fs: FunctionScope): void {
+    const port = this.outPorts[portIndex];
+    const cast = new TypeCast(port.type, newType, this, fs);
+    for (const e of this.edges) {
+      if (e[1] === port) {
+        e[1] = cast.inPorts[0];
+      }
+    }
+    port.type = newType;
+    this.edges.push([cast.outPorts[0], port]);
   }
 
   public addFromAST(expression: AST.Expression, fs: FunctionScope): void {

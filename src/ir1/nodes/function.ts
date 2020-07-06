@@ -4,6 +4,7 @@ import { Port } from "../ports/port";
 import { FunctionScope } from "../scopes/function";
 import { FunctionType } from "../types";
 import { Type } from "../types/type";
+import { PrimitiveType } from "../types/primitive";
 import { ComplexNode } from "./complex";
 
 export class FunctionValue extends ComplexNode {
@@ -46,6 +47,10 @@ export class FunctionValue extends ComplexNode {
       const declared = returns[i];
       const derived = this.outPorts[i].type;
       if (declared.string() != derived.string()) {
+        if (declared instanceof PrimitiveType && derived instanceof PrimitiveType) {
+          this.addCast(i, declared, fs);
+          continue;
+        }
         throw new Error("Declared type for argument #" + i + " does not match derived "
           + declared.string() + " != " + derived.string());
       }
