@@ -13,7 +13,7 @@ export * from "./literal";
 export * from "./loop";
 export * from "./node";
 export * from "./old";
-export * from "./range";
+export * from "./rangeGen";
 export * from "./record";
 export * from "./recordAccess";
 export * from "./reduction";

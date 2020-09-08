@@ -4,16 +4,17 @@ import { FunctionScope } from "../scopes/function";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
+import { StreamType } from "../types/stream";
 
 export class Scatter extends Node {
-  constructor(sources: AST.Expression[], scope: Scope, fs: FunctionScope) {
+  constructor(type: Types.Type, scope: Scope, fs: FunctionScope) {
     super("Scatter");
-    for (const s of sources) {
-      this.createAndLink(s, scope, fs);
-    }
 
-    const type = this.inPorts[0].type;
+    this.inPorts.push(new Port(this.id, StreamType.createByElement(type)));
+
+    // The first out port represents the value being scattered, second is its index
     this.outPorts.push(new Port(this.id, type));
+    this.outPorts.push(new Port(this.id, Types.PrimitiveType.createByName("integer")));
     scope.addNode(this);
   }
 }

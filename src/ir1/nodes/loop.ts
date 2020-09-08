@@ -7,13 +7,13 @@ import { ComplexNode } from "./complex";
 import { Condition } from "./condition";
 import { Init } from "./init";
 import { Node } from "./node";
-import { Range } from "./range";
+import { RangeGen } from "./rangeGen";
 import { Returns } from "./returns";
 
 export class LoopExpression extends ComplexNode {
   public init: Init;
   public body: Init;
-  public range?: Range;
+  public RangeGen?: RangeGen;
   public preCondition?: Condition;
   public postCondition?: Condition;
   public reductions: Array<[string, Body]>;
@@ -28,8 +28,8 @@ export class LoopExpression extends ComplexNode {
     this.init = new Init("Init", definition.init, params, fs);
     let bodyInputs = this.init.getResults();
     if (definition.range) {
-      this.range = new Range(definition.range, scope, fs);
-      bodyInputs = bodyInputs.concat(this.range.getResults());
+      this.RangeGen = new RangeGen(definition.range, scope, fs);
+      bodyInputs = bodyInputs.concat(this.RangeGen.getResults());
     }
     bodyInputs = bodyInputs.concat(params);
     if (definition.preCondition) {
@@ -57,14 +57,14 @@ export class LoopExpression extends ComplexNode {
     for (const [_, r] of this.reductions) {
       r.indexPorts();
     }
-    if (this.range) { this.range.indexPorts(); }
+    if (this.RangeGen) { this.RangeGen.indexPorts(); }
     if (this.preCondition) { this.preCondition.indexPorts(); }
     if (this.postCondition) { this.postCondition.indexPorts(); }
   }
   public graphML(): string {
     const nodes: Node[] = [this.init];
 
-    if (this.range) { nodes.push(this.range); }
+    if (this.RangeGen) { nodes.push(this.RangeGen); }
     if (this.preCondition) { nodes.push(this.preCondition); }
 
     nodes.push(this.body);
