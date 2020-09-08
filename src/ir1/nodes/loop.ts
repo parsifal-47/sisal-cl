@@ -16,7 +16,7 @@ export class LoopExpression extends ComplexNode {
   public RangeGen?: RangeGen;
   public preCondition?: Condition;
   public postCondition?: Condition;
-  public reductions: Array<[string, Body]>;
+  public reduction: Returns;
 
   constructor(definition: AST.LoopExpression, scope: Scope, fs: FunctionScope) {
     super("LoopExpression", definition);
@@ -40,23 +40,22 @@ export class LoopExpression extends ComplexNode {
     if (definition.postCondition) {
       this.postCondition = new Condition("PostCondition", [definition.postCondition], returnInputs, fs);
     }
-    this.reductions = new Array<[string, Body]>();
+    let retExpressions = new Array<[string, AST.Expression]>();
     for (const r of definition.reductions) {
-      const ret = new Returns(r.name, [r.expression], returnInputs, fs);
-      this.reductions.push([r.name, ret]);
-      for (const outPort of ret.outPorts) {
-        this.outPorts.push(new Port(this.id, outPort.type));
-      }
+      retExpressions.push([r.name, r.expression]);
     }
+    this.reduction = new Returns(retExpressions, returnInputs, fs);
+    for (const outPort of this.reduction.outPorts) {
+      this.outPorts.push(new Port(this.id, outPort.type));
+    }
+
     scope.addNode(this);
   }
   public indexPorts(): void {
     super.indexPorts();
     this.init.indexPorts();
     this.body.indexPorts();
-    for (const [_, r] of this.reductions) {
-      r.indexPorts();
-    }
+    this.reduction.indexPorts();
     if (this.RangeGen) { this.RangeGen.indexPorts(); }
     if (this.preCondition) { this.preCondition.indexPorts(); }
     if (this.postCondition) { this.postCondition.indexPorts(); }
@@ -70,9 +69,7 @@ export class LoopExpression extends ComplexNode {
     nodes.push(this.body);
 
     if (this.postCondition) { nodes.push(this.postCondition); }
-    for (const [_, r] of this.reductions) {
-      nodes.push(r);
-    }
+    nodes.push(this.reduction);
 
     return this.graphMLComplex([nodes], new Map([]));
   }

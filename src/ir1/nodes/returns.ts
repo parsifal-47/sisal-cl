@@ -7,14 +7,14 @@ import { ComplexNode } from "./complex";
 import { Reduction } from "./reduction";
 
 export class Returns extends ComplexNode {
-  constructor(reduction: string, expressions: AST.Expression[], inputs: Array<[string, Types.Type]>, fs: FunctionScope) {
+  constructor(retExpressions: Array<[string, AST.Expression]>, inputs: Array<[string, Types.Type]>, fs: FunctionScope) {
     super("Returns");
 
     this.cloneParams(inputs);
-    for (const expression of expressions) {
+    for (const [name, expression] of retExpressions) {
       const ports = getOutPorts(expression, this, fs);
       for (const p of ports) {
-        const r = new Reduction(reduction, p.type, this);
+        const r = new Reduction(name, p.type, this);
         const outPort = new Port(this.id, r.outPorts[0].type);
 
         this.outPorts.push(outPort);
