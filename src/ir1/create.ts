@@ -70,7 +70,7 @@ export function getOutPorts(expression: AST.Expression, scope: Scope, fs: Functi
     return [scope.resolve(expression)];
   }
   if (AST.isLiteral(expression)) {
-    const literal = new Nodes.Literal(expression, scope);
+    const literal = new Nodes.Literal(scope, expression);
     return literal.outPorts;
   }
   if (AST.isArrayValue(expression)) {

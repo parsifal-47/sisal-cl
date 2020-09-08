@@ -2,6 +2,8 @@ import { Port } from "../ports/port";
 import { Scope } from "../scopes/scope";
 import * as Types from "../types/";
 import { Node } from "./node";
+import { Literal } from "./literal";
+import { PrimitiveType } from "../types/";
 
 const KnownReductions: Map<string, (t: Types.Type) => Types.Type> = new Map([
   ["stream", (t) => Types.StreamType.createByElement(t)],
@@ -25,6 +27,11 @@ export class Reduction extends Node {
       throw new Error("Unknown reduction " + name);
     }
     const reductionFun = KnownReductions.get(name)!;
+    const guard = Literal.createByTypeValue("boolean", "true", scope);
+
+    this.inPorts.push(new Port(this.id, PrimitiveType.createByName("boolean")));
+    scope.addEdge([guard.outPorts[0], this.inPorts[0]]);
+
     this.inPorts.push(new Port(this.id, type));
     this.outPorts.push(new Port(this.id, reductionFun(type)));
 
