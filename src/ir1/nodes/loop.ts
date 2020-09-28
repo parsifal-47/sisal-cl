@@ -36,7 +36,7 @@ export class LoopExpression extends ComplexNode {
       this.preCondition = new Condition("PreCondition", [definition.preCondition], bodyInputs, fs);
     }
     this.body = new Init("Body", definition.body, bodyInputs, fs);
-    const returnInputs = bodyInputs.concat(this.body.getResults());
+    const returnInputs = this.body.getResults().concat(bodyInputs);
     if (definition.postCondition) {
       this.postCondition = new Condition("PostCondition", [definition.postCondition], returnInputs, fs);
     }
