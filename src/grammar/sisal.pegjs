@@ -663,7 +663,7 @@ LoopCondition
   }
 
 LoopInit
-  = LetToken __ definitions:DefinitionList {
+  = InitialToken __ definitions:DefinitionList __ {
     return definitions;
   }
 
