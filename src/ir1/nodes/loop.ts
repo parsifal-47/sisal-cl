@@ -61,7 +61,8 @@ export class LoopExpression extends ComplexNode {
     if (this.postCondition) { this.postCondition.indexPorts(); }
   }
   public graphML(): string {
-    const nodes: Node[] = [this.init];
+    const nodes: Node[] = [];
+    if (this.init.outPorts.length > 0) { nodes.push(this.init); }
 
     if (this.RangeGen) { nodes.push(this.RangeGen); }
     if (this.preCondition) { nodes.push(this.preCondition); }
