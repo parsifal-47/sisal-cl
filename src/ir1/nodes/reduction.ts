@@ -29,10 +29,10 @@ export class Reduction extends Node {
     const reductionFun = KnownReductions.get(name)!;
     const guard = Literal.createByTypeValue("boolean", "true", scope);
 
-    this.inPorts.push(new Port(this.id, PrimitiveType.createByName("boolean")));
     this.inPorts.push(new Port(this.id, type));
+    this.inPorts.push(new Port(this.id, PrimitiveType.createByName("boolean")));
 
-    scope.addEdge([guard.outPorts[0], this.inPorts[1]]);
+    scope.addEdge([guard.outPorts[0], this.inPorts[0]]);
 
     this.outPorts.push(new Port(this.id, reductionFun(type)));
 

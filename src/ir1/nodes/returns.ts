@@ -19,7 +19,7 @@ export class Returns extends ComplexNode {
 
         this.outPorts.push(outPort);
 
-        this.addEdge([p, r.inPorts[0]]);
+        this.addEdge([p, r.inPorts[1]]);
         this.addEdge([r.outPorts[0], outPort]);
       }
     }
