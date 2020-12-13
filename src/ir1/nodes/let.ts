@@ -28,11 +28,13 @@ export class LetExpression extends ComplexNode {
         this.init.inPorts.splice(index, 1);
         this.init.outPorts.splice(index, 1);
         this.body.inPorts.splice(index, 1);
+        this.params.splice(index, 1);
         continue;
       }
       index++;
     }
     scope.addNode(this);
+    this.linkToScope(scope);
   }
   public indexPorts(): void {
     super.indexPorts();

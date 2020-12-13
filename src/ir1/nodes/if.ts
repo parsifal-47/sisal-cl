@@ -60,13 +60,16 @@ export class IfExpression extends ComplexNode {
         index++;
         continue;
       }
+      this.params.splice(index, 1);
       this.inPorts.splice(index, 1);
       this.condition.inPorts.splice(index, 1);
       for (const n of this.branches) {
         n.inPorts.splice(index, 1);
       }
     }
+    this.linkToScope(scope);
   }
+
   public indexPorts(): void {
     super.indexPorts();
     for (const n of this.branches) {
@@ -74,6 +77,7 @@ export class IfExpression extends ComplexNode {
     }
     this.condition.indexPorts();
   }
+
   public graphML(): string {
     return this.graphMLComplex([[this.condition], this.branches], new Map([]));
   }

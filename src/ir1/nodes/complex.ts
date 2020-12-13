@@ -56,6 +56,13 @@ export class ComplexNode extends Node implements Scope {
     this.cloneParams(scope.getParams());
   }
 
+  public linkToScope(scope: Scope) {
+    for (const [n, p] of this.params) {
+      const source = scope.resolve(n);
+      scope.addEdge([source, p]);
+    }
+  }
+
   public inPortUsed(index: number): boolean {
     const port = this.inPorts[index];
     for (const [p, _] of this.edges) {

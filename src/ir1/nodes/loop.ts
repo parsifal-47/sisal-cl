@@ -50,7 +50,9 @@ export class LoopExpression extends ComplexNode {
     }
 
     scope.addNode(this);
+    this.linkToScope(scope);
   }
+
   public indexPorts(): void {
     super.indexPorts();
     this.init.indexPorts();
@@ -60,6 +62,7 @@ export class LoopExpression extends ComplexNode {
     if (this.preCondition) { this.preCondition.indexPorts(); }
     if (this.postCondition) { this.postCondition.indexPorts(); }
   }
+
   public graphML(): string {
     const nodes: Node[] = [];
     if (this.init.outPorts.length > 0) { nodes.push(this.init); }
