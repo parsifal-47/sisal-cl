@@ -46,15 +46,19 @@ export class IfExpression extends ComplexNode {
 
     let index = 0;
     while (index < this.condition.inPorts.length) {
+      let used = false;
       if (this.condition.inPortUsed(index)) {
-        index++;
-        continue;
+        used = true;
       }
       for (const n of this.branches) {
         if (n.inPortUsed(index)) {
-          index++;
-          continue;
+          used = true;
+          break;
         }
+      }
+      if (used) {
+        index++;
+        continue;
       }
       this.inPorts.splice(index, 1);
       this.condition.inPorts.splice(index, 1);
