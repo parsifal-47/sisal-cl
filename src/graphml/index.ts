@@ -7,13 +7,23 @@ export function makeNode(id: string, name: string, location: string, inPorts: Po
        (p) => "<port name=\"" + prefix + String(p.index) + "\" type=\"" + p.type.string() + "\" />").join(""));
   };
 
+  const genSubGraphFunction = (id: string, subGraph: string) => {
+    if (subGraph) {
+      return `<graph id="${id}_graph" edgedefault="directed">` +
+          subGraph +
+          `</graph>`;
+    }
+
+    return subGraph;
+  }
+
   return `<node id="${id}">
             <data key="type">${name}</data>
             <data key="location">${location}</data>` +
          Array.from(props, ([key, value]) => `<data key="${key}">${value}</data>`).join("\n") +
          genFunction("in", inPorts) +
          genFunction("out", outPorts) +
-         subGraph +
+         genSubGraphFunction(id, subGraph) +
          "</node>";
 }
 
