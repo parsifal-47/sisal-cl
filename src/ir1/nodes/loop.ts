@@ -22,9 +22,6 @@ export class LoopExpression extends ComplexNode {
     super("LoopExpression", definition);
     const params = scope.getParams();
     this.cloneParamsFromScope(scope);
-    for (let i = 0; i < params.length; i++) {
-      scope.addEdge([scope.resolve(params[i][0]), this.inPorts[i]]);
-    }
     this.init = new Init("Init", definition.init, params, fs);
     let bodyInputs = this.init.getResults();
     if (definition.range) {
